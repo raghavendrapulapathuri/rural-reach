@@ -1,4 +1,66 @@
-import { Scheme, Tool, LearningMaterial, CommunityPost, Translations } from './types';
+import { Scheme, Tool, LearningMaterial, CommunityPost, Translations, ChatMessage } from './types';
+
+// Demo credentials for authentication
+export const DEMO_CREDENTIALS = {
+  users: [
+    {
+      email: 'farmer@demo.com',
+      password: 'farmer123',
+      role: 'farmer',
+      name: 'Demo Farmer'
+    },
+    {
+      email: 'admin@demo.com',
+      password: 'admin123',
+      role: 'admin',
+      name: 'Demo Admin'
+    }
+  ]
+};
+
+// Predefined chatbot Q&A pairs
+export const CHATBOT_QA: ChatMessage[] = [
+  {
+    question: "What government schemes are available for farmers?",
+    answer: "There are several key schemes available:\n1. PM Kisan Samman Nidhi - Financial support of ₹6,000 per year\n2. Kisan Credit Card - Easy credit access\n3. PMFBY - Crop insurance scheme\n4. Soil Health Card - Free soil testing and recommendations\nYou can find more details in our Schemes section."
+  },
+  {
+    question: "How can I apply for PM Kisan?",
+    answer: "To apply for PM Kisan:\n1. Visit pmkisan.gov.in\n2. Click on 'New Farmer Registration'\n3. Fill in your Aadhaar, bank details, and land records\n4. Submit the form\n5. Track your application using the registration number\nYou can also visit your nearest Common Service Centre (CSC) for assistance."
+  },
+  {
+    question: "What is the eligibility for Kisan Credit Card?",
+    answer: "You are eligible for a Kisan Credit Card if you are:\n1. A farmer (individual/joint)\n2. Owner cultivator\n3. Tenant farmer or sharecropper\n4. Member of SHGs or Joint Liability Groups\nVisit your nearest bank with land records and ID proof to apply."
+  },
+  {
+    question: "How to check soil health?",
+    answer: "To check your soil health:\n1. Get a Soil Health Card from local agriculture office\n2. Collect soil sample as per guidelines\n3. Submit to testing lab\n4. Receive detailed analysis and recommendations\nThis service is free under the Soil Health Card Scheme."
+  },
+  {
+    question: "What modern farming tools are recommended?",
+    answer: "Some recommended modern farming tools include:\n1. Drip irrigation systems for water efficiency\n2. Solar pumps for sustainable energy\n3. Soil testing kits for nutrient management\n4. Modern seeders and harvesters\nCheck our Tools section for detailed information and suppliers."
+  },
+  {
+    question: "How to protect crops from pests?",
+    answer: "To protect crops from pests:\n1. Regular monitoring of fields\n2. Use of appropriate bio-pesticides\n3. Maintain field hygiene\n4. Follow integrated pest management\n5. Consult our Learning section for detailed guides\nYou can also connect with experts through our Community forum."
+  },
+  {
+    question: "What are the benefits of organic farming?",
+    answer: "Benefits of organic farming include:\n1. Higher profit margins\n2. Better soil health\n3. Environmental sustainability\n4. Chemical-free produce\n5. Lower input costs long-term\nExplore our Learning section for organic farming guides."
+  },
+  {
+    question: "How to get weather updates for farming?",
+    answer: "For weather updates:\n1. Use weather apps like Mausam\n2. Subscribe to SMS alerts from IMD\n3. Check local agriculture department advisories\n4. Join our community for real-time updates\nThis helps in planning farming activities better."
+  },
+  {
+    question: "What are the current MSP rates?",
+    answer: "Minimum Support Prices (MSP) are updated seasonally. For current rates:\n1. Visit the official portal: enam.gov.in\n2. Check local APMC markets\n3. Use the PM Kisan app\nWe also update MSP information in our Schemes section regularly."
+  },
+  {
+    question: "How to join farmer communities?",
+    answer: "To connect with farmer communities:\n1. Join our Community forum\n2. Participate in local Farmer Producer Organizations\n3. Attend Krishi Vigyan Kendra meetings\n4. Connect with agricultural universities\nShare experiences and learn from others!"
+  }
+];
 
 export const MOCK_SCHEMES: Scheme[] = [
   {
@@ -76,7 +138,7 @@ export const MOCK_SCHEMES: Scheme[] = [
     eligibility: 'Varies by state-specific projects. Includes farmers, entrepreneurs, and public/private institutions.',
     howToApply: 'Proposals are submitted to the State Level Sanctioning Committee (SLSC) through the state agriculture department.',
     officialLink: 'https://rkvy.nic.in/',
-    image: 'https://images.pexels.com/photos/2260800/pexels-photo-2260800.jpeg'
+    image: 'https://www.legalraasta.com/blog/wp-content/uploads/2021/10/Rashtriya-Krishi-Vikas-Yojana.png'
   }
 ];
 
@@ -117,7 +179,7 @@ export const MOCK_TOOLS: Tool[] = [
     name: 'Precision Farming Technology',
     description: 'Utilizes GPS, sensors, and drones to monitor crop health, soil conditions, and apply resources like water and fertilizers precisely where needed, optimizing yield and reducing waste.',
     category: 'Technology',
-    imageURL: 'https://images.pexels.com/photos/2255805/pexels-photo-2255805.jpeg',
+    imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwWRCddtCiiHLjwCXPQPnYAHrYcXz5JEkpwg&s',
     videoLink: 'https://www.youtube.com/embed/S_n-sO_s-2w'
   },
   {
@@ -167,7 +229,7 @@ export const MOCK_LEARNING: LearningMaterial[] = [
     title: 'Hydroponics at Home',
     description: 'A video tutorial on setting up a small-scale hydroponics system for growing vegetables at home with minimal space and soil.',
     type: 'video',
-    mediaURL: 'https://www.youtube.com/embed/S_n-sO_s-2w',
+    mediaURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUGXvPWcHmplvCUQhPf8YkYRNpbDiQpcqAJw&s',
     tags: ['hydroponics', 'soilless', 'urban-farming']
   },
   {
@@ -183,7 +245,7 @@ export const MOCK_LEARNING: LearningMaterial[] = [
     title: 'Guide to Post-Harvest Management',
     description: 'Learn best practices for handling, storing, and processing crops after harvest to minimize losses and maximize market value. This video covers drying, storage solutions, and more.',
     type: 'video',
-    mediaURL: 'https://www.youtube.com/embed/S_n-sO_s-2w',
+    mediaURL: 'https://images.squarespace-cdn.com/content/v1/65764d4e6c1b3b026d0afd05/1702863853743-NVVABZZ40XI2MMCZXA9W/tim-mossholder-xDwEa2kaeJA-unsplash.jpg',
     tags: ['post-harvest', 'storage', 'value-addition']
   },
   {

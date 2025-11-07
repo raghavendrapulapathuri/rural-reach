@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MOCK_COMMUNITY_POSTS } from '../constants';
 import { CommunityPost } from '../types';
 import { useAppContext } from '../context/AppContext';
@@ -6,6 +6,46 @@ import { SendIcon } from '../components/icons';
 
 const CommunityPage: React.FC = () => {
   const { translate } = useAppContext();
+  const [posts, setPosts] = useState<CommunityPost[]>(MOCK_COMMUNITY_POSTS);
+  const [newPost, setNewPost] = useState('');
+  const [comments, setComments] = useState<{ [key: string]: string }>({});
+
+  const handleAddPost = () => {
+    if (!newPost.trim()) return;
+    
+    const newPostObj: CommunityPost = {
+      id: String(Date.now()),
+      author: 'You',
+      avatar: 'https://i.pravatar.cc/48?u=currentUser',
+      content: newPost,
+      timestamp: 'Just now',
+      comments: []
+    };
+
+    setPosts([newPostObj, ...posts]);
+    setNewPost('');
+  };
+
+  const handleAddComment = (postId: string, comment: string) => {
+    if (!comment.trim()) return;
+
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: [...post.comments, {
+            id: String(Date.now()),
+            author: 'You',
+            avatar: 'https://i.pravatar.cc/48?u=currentUser',
+            content: comment,
+            timestamp: 'Just now'
+          }]
+        };
+      }
+      return post;
+    }));
+    setComments({ ...comments, [postId]: '' });
+  };
 
   const renderPost = (post: CommunityPost) => (
     <div key={post.id} className="bg-gray-800 rounded-lg shadow-md p-6 border border-gray-700">
@@ -37,9 +77,14 @@ const CommunityPage: React.FC = () => {
             <input 
                 type="text" 
                 placeholder="Write a comment..." 
+                value={comments[post.id] || ''}
+                onChange={(e) => setComments({ ...comments, [post.id]: e.target.value })}
                 className="flex-1 px-4 py-2 border border-gray-600 bg-gray-700 text-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
             />
-            <button className="bg-primary-600 text-white rounded-full p-2 hover:bg-primary-700">
+            <button 
+                onClick={() => handleAddComment(post.id, comments[post.id] || '')}
+                className="bg-primary-600 text-white rounded-full p-2 hover:bg-primary-700 transition-colors"
+            >
                 <SendIcon className="w-5 h-5" />
             </button>
         </div>
@@ -58,15 +103,20 @@ const CommunityPage: React.FC = () => {
         <h2 className="text-2xl font-bold mb-4 text-gray-100">Start a New Discussion</h2>
         <textarea 
             placeholder="What's on your mind?"
+            value={newPost}
+            onChange={(e) => setNewPost(e.target.value)}
             className="w-full h-24 p-4 border border-gray-600 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
-        <button className="mt-4 bg-primary-600 text-white font-bold py-2 px-6 rounded-md hover:bg-primary-700 transition-colors">
+        <button 
+            onClick={handleAddPost}
+            className="mt-4 bg-primary-600 text-white font-bold py-2 px-6 rounded-md hover:bg-primary-700 transition-colors"
+        >
             Post
         </button>
       </div>
 
       <div className="space-y-6">
-        {MOCK_COMMUNITY_POSTS.map(renderPost)}
+        {posts.map(renderPost)}
       </div>
     </div>
   );

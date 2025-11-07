@@ -1,9 +1,10 @@
 
 export interface User {
-  id: string;
+  id?: string;
   name: string;
   email: string;
-  role: 'user' | 'admin';
+  role: 'farmer' | 'admin';
+  password?: string;
 }
 
 export interface Scheme {
@@ -62,4 +63,9 @@ export interface Translations {
   [key: string]: {
     [key: string]: string;
   };
+}
+
+export interface ChatMessage {
+  question: string;
+  answer: string;
 }

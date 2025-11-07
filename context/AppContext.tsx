@@ -16,8 +16,8 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const MOCK_USERS = {
-  'admin@ruralreach.com': { id: '1', name: 'Admin', email: 'admin@ruralreach.com', role: 'admin' as const },
-  'user@ruralreach.com': { id: '2', name: 'Demo User', email: 'user@ruralreach.com', role: 'user' as const },
+  'admin@demo.com': { id: '1', name: 'Demo Admin', email: 'admin@demo.com', role: 'admin' as const },
+  'farmer@demo.com': { id: '2', name: 'Demo Farmer', email: 'farmer@demo.com', role: 'farmer' as const },
 };
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
